@@ -1,0 +1,71 @@
+= OpenNMS Build Workbench
+
+This is a helper script which allows you to build OpenNMS Horizon from source using a [Docker build environment](https://hub.docker.com/r/opennms/build-env).
+It is possible to build and run multiple branches.
+A shared Maven Home with external dependencies is created.
+For artifacts from the OpenNMS branches a Maven home is created in every branch directory.
+
+== Requirements
+
+* Linux
+* Git
+* Docker
+* Docker Compose
+
+== Quick Start
+
+.Step 1: Check out the repository
+[source, bash]
+----
+git clone https://github.com/opennms-forge/build-workbench.git workbench
+cd workbench
+----
+
+.Step 2: Make a build and run
+[source, bash]
+----
+./docker-build.sh -s jira/NMS-9858
+----
+
+== Usage
+
+[source]
+----
+./docker-build.sh -h
+
+Docker build script for parallel builds of branches using a Docker build image
+
+-b: Name of the branch to build
+-s: Name of the branch to build and launch using docker-compose
+-h: Show this help.
+----
+
+== Directory Structure
+
+[source]
+----
+root@gns3vm:workbench$ tree -L 2
+.
+├── develop <1>
+│   ├── docker-compose.yml <2>
+│   ├── etc-overlay
+│   ├── jetty-overlay
+│   ├── m2
+│   └── opennms
+├── docker-build.sh <3>
+├── docker-compose.tpl <4>
+├── LICENSE
+├── m2 <5>
+│   └── repository
+└── mvr-no-landing-pages <1>
+    ├── docker-compose.yml <2>
+    ├── m2 <6>
+    └── opennms <7>
+----
+<1> Two branches `develop` and `mvr/no-landing-pages` from the source repository
+<2> Docker compose file to start a built using the branch directory as project directory for isolation
+<3> The helper script which creates the directory structure
+<4> A template file to spinup a stack with Docker Compose
+<5> Maven Home with shared dependencies for all branches
+<6> A Maven home with branch specific build artifacts in  `org/opennms`
+<7> The source code from the branch
