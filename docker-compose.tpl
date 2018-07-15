@@ -57,7 +57,6 @@ services:
     volumes:
       - ./opennms/target/INSTALL_VERSION:/opt/opennms
       - ./etc-overlay:/opt/opennms-etc-overlay
-      - ./jetty-overlay:/opt/opennms-jetty-webinf-overlay
     command: ["/docker-entrypoint.sh", "-s"]
     depends_on:
       database:
