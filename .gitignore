@@ -1,0 +1,7 @@
+*
+!*/
+!.gitignore
+!LICENSE
+!README.adoc
+!docker-build.sh
+!docker-compose.tpl
